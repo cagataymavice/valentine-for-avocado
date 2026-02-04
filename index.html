@@ -128,7 +128,7 @@ body{
       cursor:pointer;
       font-weight:800;
       letter-spacing:.2px;
-      transition: transform .08s ease, filter .15s ease;
+      transition: left .18s ease, top .18s ease, filter .15s ease, transform .08s ease;
       user-select:none;
     }
     button:active{ transform: scale(.98); }
@@ -190,52 +190,72 @@ body{
   alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
 ">YES 💘</button>
 
-<button class="no" id="noBtn">
+<button class="no" id="noBtn" type="button" aria-label="No (Joker)">
   <img src="joker.png" alt="Joker" style="height:20px;vertical-align:middle;margin-right:8px;">
   NO
 </button>
     </div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>
-</body>
-
 <script>
   const noBtn = document.getElementById("noBtn");
   const yesBtn = document.querySelector(".yes");
 
   function dodge() {
     const area = noBtn.parentElement.getBoundingClientRect();
-    const btn = noBtn.getBoundingClientRect();
-    const yes = yesBtn.getBoundingClientRect();
+    const btn  = noBtn.getBoundingClientRect();
+    const yes  = yesBtn.getBoundingClientRect();
 
-    const padding = 20;          // wall padding
-    const safeRadius = 120;      // distance to stay away from YES
+    const padding = 12;        // duvar boşluğu
+    const safeRadius = 170;    // YES'ten uzak durma mesafesi (arttırdım)
+    const maxTries = 60;
 
-    let x, y, tries = 0;
+    // YES'in merkezi (safe zone buna göre)
+    const yesCx = yes.left + yes.width / 2;
+    const yesCy = yes.top  + yes.height / 2;
 
-    do {
-      x = Math.random() * (area.width - btn.width - padding);
-      y = Math.random() * (area.height - btn.height - padding);
+    let x = 0, y = 0, tries = 0;
 
-      const noX = area.left + x;
-      const noY = area.top + y;
+    while (tries < maxTries) {
+      const maxX = Math.max(0, area.width  - btn.width  - padding);
+      const maxY = Math.max(0, area.height - btn.height - padding);
 
-      const dx = noX - yes.left;
-      const dy = noY - yes.top;
+      x = padding/2 + Math.random() * maxX;
+      y = padding/2 + Math.random() * maxY;
 
+      // NO'nun merkezini hesapla
+      const noCx = (area.left + x) + btn.width / 2;
+      const noCy = (area.top  + y) + btn.height / 2;
+
+      const dist = Math.hypot(noCx - yesCx, noCy - yesCy);
+
+      if (dist >= safeRadius) break;
       tries++;
-      if (tries > 20) break; // fail-safe
-    } while (Math.hypot(dx, dy) < safeRadius);
+    }
 
     noBtn.style.position = "absolute";
     noBtn.style.left = x + "px";
     noBtn.style.top  = y + "px";
   }
 
-  noBtn.addEventListener("mouseenter", dodge);
+  // Masaüstü: daha "joker" kaçışı
+  noBtn.addEventListener("pointerenter", dodge);
+  noBtn.addEventListener("mousemove", dodge);
+
+  // Telefon: dokununca kaçsın (ve tıklanamasın)
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     dodge();
   }, { passive:false });
+
+  // Tıklamayı tamamen iptal et
+  noBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    dodge();
+  });
 </script>
+
+</body>
+
 </html>

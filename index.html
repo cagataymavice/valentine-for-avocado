@@ -109,11 +109,16 @@ body{
     }
 
     .actions{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 76px;              /* playground height */
+  margin: 0 auto 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
 
     button{
       font-size:16px;
@@ -185,12 +190,39 @@ body{
   alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
 ">YES 💘</button>
 
-<button class="no" ...>
+<button class="no" id="noBtn">
   <img src="joker.png" alt="Joker" style="height:20px;vertical-align:middle;margin-right:8px;">
   NO
 </button>
     </div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>
-</body>
+</body><script>
+  const noBtn = document.getElementById("noBtn");
+
+  function dodge() {
+    const area = noBtn.parentElement.getBoundingClientRect(); // the .actions box
+    const btn = noBtn.getBoundingClientRect();
+
+    // keep the button inside the actions area
+    const maxX = area.width - btn.width;
+    const maxY = area.height - btn.height;
+
+    const x = Math.random() * Math.max(0, maxX);
+    const y = Math.random() * Math.max(0, maxY);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top  = y + "px";
+  }
+
+  // Desktop hover
+  noBtn.addEventListener("mouseenter", dodge);
+
+  // Phone touch (works better than hover)
+  noBtn.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    dodge();
+  }, { passive: false });
+</script>
 </html>

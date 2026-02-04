@@ -133,7 +133,7 @@ body{
   position: absolute;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.08);
 }
 
     button{
@@ -230,13 +230,17 @@ body{
   const x = padding/2 + Math.random() * maxX;
   const y = padding/2 + Math.random() * maxY;
 
-  noBtn.style.position = "absolute";   // inside the card
+  noBtn.style.position = "absolute";
   noBtn.style.left = x + "px";
   noBtn.style.top  = y + "px";
   noBtn.style.zIndex = "9999";
+
+  noBtn.style.transform = "none";  // ✅ artık translateY(-50%) yok
+  noBtn.style.right = "auto";      // ✅ artık right:0 etkisi yok
 }
   // Masaüstü: yaklaşınca kaçsın
   noBtn.addEventListener("pointerenter", dodge);
+  noBtn.addEventListener("mousemove", dodge);
 
   // Telefon: dokununca kaçsın
   noBtn.addEventListener("touchstart", (e) => {

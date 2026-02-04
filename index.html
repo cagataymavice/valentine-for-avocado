@@ -137,12 +137,15 @@ body{
     .yes:hover{ filter: brightness(1.05); }
 
     .no{
-      background: rgba(255,255,255,.07);
-      color: var(--text);
-      border:1px solid rgba(255,255,255,.14);
-    }
-    .no:hover{ filter: brightness(1.08); }
-
+  background: rgba(140, 255, 120, 0.16);   /* Joker green tint */
+  color: #e9eefc;
+  border: 1px solid rgba(140, 255, 120, 0.55);
+  box-shadow: 0 10px 22px rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+}
+.no:hover{
+  filter: brightness(1.18);
+}
     .below{
   margin-top:18px;
   color: var(--bat);

@@ -109,16 +109,31 @@ body{
       font-size:16px;
     }
 
-    .actions{
+.playground{
   position: relative;
   width: 100%;
   max-width: 420px;
-  height: 76px;              /* playground height */
+  height: 100px;
   margin: 0 auto 10px;
   display:flex;
   align-items:center;
-  justify-content: center;
+  justify-content:center;
   gap: 10px;
+  overflow: hidden;   /* 🔒 NO artık kaçıp kaybolamaz */
+}
+
+#noBtn{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.yes{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
     button{
@@ -185,17 +200,17 @@ body{
     <h1>Will you be my Valentine? 💛</h1>
    <p>Gotham needs your answer 😌🦇</p>
 
-    <div class="actions">
-      <button class="yes" onclick="
-  document.getElementById('bgm').play();
-  alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
-">YES 💘</button>
+<div class="playground" id="playground">
+  <button class="yes" onclick="
+    document.getElementById('bgm').play();
+    alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
+  ">YES 💘</button>
 
-<button class="no" id="noBtn" type="button" aria-label="No (Joker)">
-  <img src="joker.png" alt="Joker" style="height:20px;vertical-align:middle;margin-right:8px;">
-  NO
-</button>
-    </div>
+  <button class="no" id="noBtn" type="button" aria-label="No (Joker)">
+    <img src="joker.png" alt="Joker" style="height:20px;vertical-align:middle;margin-right:8px;">
+    NO
+  </button>
+</div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>
 <script>

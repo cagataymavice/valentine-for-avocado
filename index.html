@@ -117,7 +117,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:8px;
 }
 
     button{
@@ -197,32 +197,45 @@ body{
     </div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>
-</body><script>
+</body>
+
+<script>
   const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.querySelector(".yes");
 
   function dodge() {
-    const area = noBtn.parentElement.getBoundingClientRect(); // the .actions box
+    const area = noBtn.parentElement.getBoundingClientRect();
     const btn = noBtn.getBoundingClientRect();
+    const yes = yesBtn.getBoundingClientRect();
 
-    // keep the button inside the actions area
-    const maxX = area.width - btn.width;
-    const maxY = area.height - btn.height;
+    const padding = 20;          // wall padding
+    const safeRadius = 120;      // distance to stay away from YES
 
-    const x = Math.random() * Math.max(0, maxX);
-    const y = Math.random() * Math.max(0, maxY);
+    let x, y, tries = 0;
+
+    do {
+      x = Math.random() * (area.width - btn.width - padding);
+      y = Math.random() * (area.height - btn.height - padding);
+
+      const noX = area.left + x;
+      const noY = area.top + y;
+
+      const dx = noX - yes.left;
+      const dy = noY - yes.top;
+
+      tries++;
+      if (tries > 20) break; // fail-safe
+    } while (Math.hypot(dx, dy) < safeRadius);
 
     noBtn.style.position = "absolute";
     noBtn.style.left = x + "px";
     noBtn.style.top  = y + "px";
   }
 
-  // Desktop hover
   noBtn.addEventListener("mouseenter", dodge);
-
-  // Phone touch (works better than hover)
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
     dodge();
-  }, { passive: false });
+  }, { passive:false });
 </script>
 </html>

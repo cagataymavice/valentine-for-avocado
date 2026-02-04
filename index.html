@@ -236,19 +236,19 @@ body{
   noBtn.style.zIndex = "9999";
 }
   // Masaüstü: yaklaşınca kaçsın
-  noBtn.addEventListener("pointerenter", dodgeAnywhere);
+  noBtn.addEventListener("pointerenter", dodge);
 
   // Telefon: dokununca kaçsın
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
-    dodgeAnywhere();
+   dodge();
   }, { passive: false });
 
   // Tıklamayı tamamen iptal et ve yine kaçır
   noBtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    dodgeAnywhere();
+    dodge();
   });
 </script>
 

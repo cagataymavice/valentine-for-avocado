@@ -31,13 +31,16 @@ body{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color:var(--text);
 
+body::before{
+  content:"";
+  position:fixed;
+  inset:-20%;
   background:
-    radial-gradient(900px 500px at 70% 15%, rgba(247,198,0,.18), transparent 60%),
-    radial-gradient(700px 450px at 25% 80%, rgba(96,165,250,.12), transparent 60%),
-    linear-gradient(rgba(5,7,12,0.75), rgba(11,18,32,0.85)),
-    url("bg.jpg") center / cover no-repeat;
-
-  overflow:hidden;
+    radial-gradient(circle at 75% 18%, rgba(247,198,0,.22), transparent 45%),
+    conic-gradient(from 260deg at 75% 18%, rgba(247,198,0,.10), transparent 40%, rgba(247,198,0,.06), transparent 70%);
+  filter: blur(12px);
+  pointer-events:none;
+  z-index:-1;
 }
 
     /* soft “bat-signal” beam */
@@ -143,6 +146,12 @@ body{
     }
     .no:hover{ filter: brightness(1.08); }
 
+    .below{
+  margin-top:18px;
+  color: var(--bat);
+  font-weight: 800;
+}
+
     .tiny{
       margin-top:14px;
       font-size:12px;
@@ -169,7 +178,10 @@ body{
    <p>Gotham needs your answer 😌🦇</p>
 
     <div class="actions">
-      <button class="yes" onclick="alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌')">YES 💘</button>
+      <button class="yes" onclick="
+  document.getElementById('bgm').play();
+  alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
+">YES 💘</button>
 
       <button class="no"
         onmouseover="this.style.position='absolute';

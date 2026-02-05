@@ -16,6 +16,7 @@
 
       --bat:#f7c600;
       --batDark:#caa300;
+      --neon:#7dff6b;
     }
 
     *{ box-sizing:border-box; }
@@ -40,7 +41,6 @@
       overflow:hidden;
     }
 
-    /* soft “bat-signal” beam */
     body::before{
       content:"";
       position:fixed;
@@ -52,7 +52,6 @@
       pointer-events:none;
     }
 
-    /* subtle city “windows” texture */
     body::after{
       content:"";
       position:fixed;
@@ -118,26 +117,24 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      gap: 10px;
       overflow: hidden;
     }
 
-    /* Konumlar */
+    /* konumlar */
     .yes{
-      position: absolute;
-      left: 0;
-      top: 50%;
+      position:absolute;
+      left:0;
+      top:50%;
       transform: translateY(-50%) scale(1.08);
     }
-
     #noBtn{
-      position: absolute;
-      right: 0;
-      top: 50%;
+      position:absolute;
+      right:0;
+      top:50%;
       transform: translateY(-50%);
     }
 
-    /* GENEL BUTON */
+    /* genel button */
     button{
       border-radius:999px;
       border:1px solid transparent;
@@ -149,18 +146,18 @@
     }
     button:active{ transform: scale(.98); }
 
-    /* ✅ EŞİT BOYUT SİSTEMİ (PC + iOS) */
+    /* ✅ eşit boyut sistemi */
     .playground button{
-      height: 56px;
-      padding: 0 22px;
-      font-size: 16px;
-      line-height: 1;
+      height:56px;
+      padding:0 22px;
+      font-size:16px;
+      line-height:1;
+      min-width:170px;
 
-      min-width: 170px;          /* ✅ YES ve NO eşit genişlik */
-      display: inline-flex;      /* ✅ YES */
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
     }
 
     /* YES */
@@ -172,119 +169,89 @@
     }
     .yes:hover{ filter: brightness(1.05); }
 
-    /* NO */
+    /* NO (bubble'lı tasarım) */
     .no{
-      /* grid ile ikon + yazı ortası sabit */
-      .no{
-  display: grid;
-  grid-template-columns: 56px 1fr 56px; /* sol bubble, yazı, sağ denge */
-  align-items: center;
+      display:grid;
+      grid-template-columns: 56px 1fr 56px; /* sol bubble, yazı, sağ denge */
+      align-items:center;
 
-  width: auto;
-  min-height: unset;
+      background: linear-gradient(180deg, #2b123d, #14091f);
+      color:#e9eefc;
+      border:2px solid var(--neon);
 
-  background: linear-gradient(180deg, #2b123d, #14091f);
-  color: #e9eefc;
-  border: 2px solid #7dff6b;
-
-  box-shadow:
-    0 0 14px rgba(125,255,107,.25),
-    0 0 30px rgba(125,255,107,.15);
-}
-
-.icon-bubble{
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  justify-self: center;
-  display: grid;
-  place-items: center;
-
-  background: rgba(125,255,107,.16);
-  border: 1px solid rgba(125,255,107,.45);
-
-  box-shadow:
-    0 0 10px rgba(125,255,107,.25),
-    inset 0 0 0 2px rgba(255,255,255,.06);
-}
-
-.no .joker-icon{
-  width: 30px;
-  height: 30px;
-  object-fit: contain;
-  border-radius: 8px;
-
-  image-rendering: -webkit-optimize-contrast;
-
-  filter:
-    drop-shadow(0 0 6px rgba(125,255,107,.55))
-    drop-shadow(0 0 14px rgba(125,255,107,.25));
-
-  pointer-events:none;
-}      
-      
+      box-shadow:
+        0 0 14px rgba(125,255,107,.25),
+        0 0 30px rgba(125,255,107,.15);
+    }
     .no:hover{ filter: brightness(1.12); }
 
     .no .btn-text{
-  justify-self: center;
-  font-weight: 900;
-  letter-spacing: .5px;
-  font-size: 16px;
-}
+      justify-self:center;
+      font-weight:900;
+      letter-spacing:.5px;
+      font-size:16px;
+    }
+
+    .icon-bubble{
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      justify-self:center;
+
+      display:grid;
+      place-items:center;
+
+      background: rgba(125,255,107,.16);
+      border: 1px solid rgba(125,255,107,.45);
+
+      box-shadow:
+        0 0 10px rgba(125,255,107,.25),
+        inset 0 0 0 2px rgba(255,255,255,.06);
+    }
 
     .no .joker-icon{
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
+      width:30px;
+      height:30px;
+      object-fit:contain;
+      border-radius:8px;
 
-      background: rgba(125,255,107,.18);
-      border: 1px solid rgba(125,255,107,.45);
-      padding: 4px;
-
-      object-fit: contain;
       image-rendering: -webkit-optimize-contrast;
 
       filter:
-        drop-shadow(0 0 6px rgba(125,255,107,.6))
-        drop-shadow(0 0 14px rgba(125,255,107,.35));
+        drop-shadow(0 0 6px rgba(125,255,107,.55))
+        drop-shadow(0 0 14px rgba(125,255,107,.25));
 
-      justify-self: center;
       pointer-events:none;
     }
 
     .below{
       margin-top:18px;
       color: var(--bat);
-      font-weight: 800;
+      font-weight:800;
     }
 
-    /* ✅ Mobil */
+    /* mobil */
     @media (max-width:420px){
       h1{ font-size:28px; }
 
-      .playground{
-        height: 170px;
-      }
+      .playground{ height:170px; }
 
-      /* YES üstte ortada */
       .yes{
-        left: 50% !important;
-        top: 35% !important;
+        left:50% !important;
+        top:35% !important;
         transform: translate(-50%, -50%) scale(1.08) !important;
       }
 
-      /* NO altta ortada */
       #noBtn{
-        left: 50%;
-        top: 75%;
-        right: auto;
+        left:50%;
+        top:75%;
+        right:auto;
         transform: translate(-50%, -50%);
       }
 
-      /* Mobilde ikisi de aynı genişlik */
       .playground button{
-        width: 220px;
-        min-width: 220px;
+        width:220px;
+        min-width:220px;
       }
     }
   </style>
@@ -322,7 +289,7 @@
     const noBtn = document.getElementById("noBtn");
     const pg = document.getElementById("playground");
 
-    function dodge() {
+    function dodge(){
       const area = pg.getBoundingClientRect();
       const padding = 12;
 
@@ -356,7 +323,7 @@
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       dodge();
-    }, { passive: false });
+    }, { passive:false });
 
     // click asla çalışmasın
     noBtn.addEventListener("click", (e) => {

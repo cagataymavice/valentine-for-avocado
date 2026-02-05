@@ -159,13 +159,13 @@ body{
 
 .no{
   display: grid;
-  grid-template-columns: 44px 1fr 44px; /* sol ikon, orta yazı, sağ denge boşluğu */
+  grid-template-columns: 52px 1fr 52px; /* ikon – yazı – denge */
   align-items: center;
 
-  padding: 14px 18px;        /* buton büyür */
-  min-height: 60px;          /* buton büyür */
-  width: 260px;              /* iOS için daha tok */
-  
+  padding: 14px 20px;
+  min-height: 60px;
+  width: 220px;              /* 👈 DAHA DAR */
+
   background: linear-gradient(180deg, #2b123d, #14091f);
   color: #e9eefc;
   border: 2px solid #7dff6b;
@@ -180,16 +180,17 @@ body{
 }
 
 .no .btn-text{
-  justify-self: center;   /* gerçek orta */
+  justify-self: center;
   font-weight: 900;
-  letter-spacing: .4px;
+  letter-spacing: .5px;
+  font-size: 17px;
 }
     
 /* Joker ikonunu neon'a uydur */
 .no .joker-icon{
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
+  width: 34px;     /* 👈 büyüdü */
+  height: 34px;
+  border-radius: 10px;
 
   /* “sticker” değil, “badge” gibi */
   background: rgba(125,255,107,.12);
@@ -201,6 +202,8 @@ body{
 
   /* ikonun neon gibi parlaması */
   filter: drop-shadow(0 0 10px rgba(125,255,107,.35));
+
+   justify-self: center;
 }
     .below{
   margin-top:18px;

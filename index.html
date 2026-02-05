@@ -41,7 +41,6 @@
       overflow:hidden;
     }
 
-    /* soft “bat-signal” beam */
     body::before{
       content:"";
       position:fixed;
@@ -53,7 +52,6 @@
       pointer-events:none;
     }
 
-    /* subtle city “windows” texture */
     body::after{
       content:"";
       position:fixed;
@@ -152,7 +150,7 @@
     /* ✅ Eşit boyut sistemi (PC + iOS) */
     .playground button{
       height:56px;
-      padding:0 22px;
+      padding:0 22px;          /* YES için kalsın */
       font-size:16px;
       line-height:1;
       min-width:170px;
@@ -175,8 +173,11 @@
     /* NO (bubble'lı tasarım) */
     .no{
       display:grid;
-      grid-template-columns: 48px 1fr 48px; /* ✅ daha dar: yuvarlak daha sola gelir */
+      grid-template-columns: 44px 1fr 44px; /* bubble 44px -> tam oturur */
       align-items:center;
+
+      padding-left: 0 !important;  /* ✅ SOL MOR BOŞLUK GİDER */
+      padding-right: 22px;         /* sağ taraf YES gibi kalsın */
 
       background: linear-gradient(180deg, #2b123d, #14091f);
       color:#e9eefc;
@@ -195,14 +196,14 @@
       font-size: 18px;   /* ✅ biraz daha büyük */
     }
 
-    /* Yuvarlak: kapsülün içinde ve SOLDA, duvara yakın */
+    /* Yuvarlak: kapsülün içinde ve TAM SOLDA */
     .icon-bubble{
       width:44px;
       height:44px;
       border-radius:999px;
 
-      justify-self: start;    /* ✅ sol tarafa yasla */
-      margin-left: 2px;       /* ✅ duvara yakın */
+      justify-self: start;
+      margin-left: 0 !important;   /* ✅ tam sol duvara */
 
       display:grid;
       place-items:center;

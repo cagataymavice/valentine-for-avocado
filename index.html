@@ -199,11 +199,11 @@ body{
 
   /* NO altta ortada (başlangıç konumu) */
   #noBtn{
-    left: 50% !important;
-    top: 75% !important;
-    right: auto !important;
-    transform: translate(-50%, -50%) !important;
-  }
+  left: 50%;
+  top: 75%;
+  right: auto;
+  transform: translate(-50%, -50%);
+}
 
    button{ width: 220px; }  /* telefonda güzel durur */
 }
@@ -288,6 +288,13 @@ body{
   window.addEventListener("load", () => {
     dodge();
   });
+
+// iOS için ekstra garanti: parmak sürüklerken de kaçsın
+noBtn.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  dodge();
+}, { passive:false });
+
 </script>
 
 </body>

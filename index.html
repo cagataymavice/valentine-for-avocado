@@ -158,25 +158,33 @@ body{
     .yes:hover{ filter: brightness(1.05); }
 
 .no{
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px; /* sol ikon, orta yazı, sağ denge boşluğu */
   align-items: center;
-  gap: 10px;
 
+  padding: 14px 18px;        /* buton büyür */
+  min-height: 60px;          /* buton büyür */
+  width: 260px;              /* iOS için daha tok */
+  
   background: linear-gradient(180deg, #2b123d, #14091f);
   color: #e9eefc;
-  border: 1.5px solid #7dff6b;
+  border: 2px solid #7dff6b;
 
   box-shadow:
     0 0 18px rgba(125,255,107,.28),
-    0 0 40px rgba(126, 58, 242, .18);
-
-  backdrop-filter: none;
+    0 0 42px rgba(125,255,107,.18);
 }
 
 .no:hover{
   filter: brightness(1.12);
 }
 
+.no .btn-text{
+  justify-self: center;   /* gerçek orta */
+  font-weight: 900;
+  letter-spacing: .4px;
+}
+    
 /* Joker ikonunu neon'a uydur */
 .no .joker-icon{
   width: 26px;
@@ -257,7 +265,7 @@ body{
 
 <button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
   <img class="joker-icon" src="joker.png" alt="">
-  NO
+  <span class="btn-text">NO</span>
 </button>
 </div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>

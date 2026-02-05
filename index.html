@@ -14,31 +14,31 @@
       --text:#e9eefc;
       --muted:#a7b2cc;
 
-      --bat:#f7c600;        /* Batman yellow */
+      --bat:#f7c600;
       --batDark:#caa300;
-      --danger:#5f697c;
     }
 
     *{ box-sizing:border-box; }
-body{
-  margin:0;
-  min-height:100vh;
-  width: 100vw;
-  height: 100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
 
- background:
-    radial-gradient(900px 500px at 70% 15%, rgba(247,198,0,.18), transparent 60%),
-    radial-gradient(700px 450px at 25% 80%, rgba(96,165,250,.12), transparent 60%),
-    linear-gradient(rgba(5,7,12,0.75), rgba(11,18,32,0.85)),
-    url("bg.jpg") center / cover no-repeat;
+    body{
+      margin:0;
+      min-height:100vh;
+      width:100vw;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
 
-  overflow:hidden;
-}
+      background:
+        radial-gradient(900px 500px at 70% 15%, rgba(247,198,0,.18), transparent 60%),
+        radial-gradient(700px 450px at 25% 80%, rgba(96,165,250,.12), transparent 60%),
+        linear-gradient(rgba(5,7,12,0.75), rgba(11,18,32,0.85)),
+        url("bg.jpg") center / cover no-repeat;
+
+      overflow:hidden;
+    }
 
     /* soft “bat-signal” beam */
     body::before{
@@ -75,7 +75,7 @@ body{
       box-shadow: 0 18px 60px rgba(0,0,0,.55);
       backdrop-filter: blur(10px);
       position:relative;
-      overflow: hidden;
+      overflow:hidden;
     }
 
     .badge{
@@ -109,54 +109,61 @@ body{
       font-size:16px;
     }
 
-.playground{
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  height: 100px;
-  margin: 0 auto 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap: 10px;
-  overflow: hidden;   /* 🔒 NO artık kaçıp kaybolamaz */
-}
+    .playground{
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      height: 110px;
+      margin: 0 auto 10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      overflow: hidden;
+    }
 
-#noBtn{
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
+    /* Konumlar */
+    .yes{
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%) scale(1.08);
+    }
 
-.yes{
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%) scale(1.08);
-}
+    #noBtn{
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
 
+    /* GENEL BUTON */
     button{
-      font-size:16px;
-      padding:12px 18px;
       border-radius:999px;
       border:1px solid transparent;
       cursor:pointer;
       font-weight:800;
       letter-spacing:.2px;
-      transition: left .18s ease, top .18s ease, filter .15s ease, transform .08s ease;
       user-select:none;
+      transition: left .18s ease, top .18s ease, filter .15s ease, transform .08s ease;
     }
     button:active{ transform: scale(.98); }
 
+    /* ✅ EŞİT BOYUT SİSTEMİ (PC + iOS) */
     .playground button{
-  height: 56px;
-  padding: 0 22px;
-  border-radius: 999px;
-  font-size: 16px;
-  line-height: 1;
-}
+      height: 56px;
+      padding: 0 22px;
+      font-size: 16px;
+      line-height: 1;
 
+      min-width: 170px;          /* ✅ YES ve NO eşit genişlik */
+      display: inline-flex;      /* ✅ YES */
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* YES */
     .yes{
       background: linear-gradient(180deg, var(--bat), var(--batDark));
       color:#0a0a0a;
@@ -165,181 +172,173 @@ body{
     }
     .yes:hover{ filter: brightness(1.05); }
 
-.no{
-  display: grid;
-  grid-template-columns: 40px 1fr 40px;
-  align-items: center;
+    /* NO */
+    .no{
+      /* grid ile ikon + yazı ortası sabit */
+      display: grid;
+      grid-template-columns: 44px 1fr 44px;
+      align-items: center;
 
-  padding: 12px 16px;     /* YES ile eşitlendi */
-  min-height: auto;       /* ❌ kaldır */
-  width: 190px;           /* 👈 ORANLI */
+      width: auto;
+      min-height: unset;
 
-  background: linear-gradient(180deg, #2b123d, #14091f);
-  color: #e9eefc;
-  border: 2px solid #7dff6b;
+      background: linear-gradient(180deg, #2b123d, #14091f);
+      color: #e9eefc;
+      border: 2px solid #7dff6b;
 
-  box-shadow:
-    0 0 14px rgba(125,255,107,.25),
-    0 0 30px rgba(125,255,107,.15);
-}
-.no:hover{
-  filter: brightness(1.12);
-}
-
-.no .btn-text{
-  justify-self: center;
-  font-weight: 900;
-  letter-spacing: .5px;
-  font-size: 17px;
-}
-    
-/* Joker ikonunu neon'a uydur */
-.no .joker-icon{
-  width: 34px;     /* 👈 büyüdü */
-  height: 34px;
-  border-radius: 10px;
-
-  /* “sticker” değil, “badge” gibi */
-  background: rgba(125,255,107,.12);
-  border: 1px solid rgba(125,255,107,.35);
-  padding: 4px;
-
-  /* iOS netlik */
-  image-rendering: -webkit-optimize-contrast;
-
-  /* ikonun neon gibi parlaması */
-  filter: drop-shadow(0 0 10px rgba(125,255,107,.35));
-
-   justify-self: center;
-}
-    .below{
-  margin-top:18px;
-  color: var(--bat);
-  font-weight: 800;
-}
-
-    .tiny{
-      margin-top:14px;
-      font-size:12px;
-      color: rgba(233,238,252,.7);
+      box-shadow:
+        0 0 14px rgba(125,255,107,.25),
+        0 0 30px rgba(125,255,107,.15);
     }
-    .tiny span{ color: var(--bat); font-weight:700; }
+    .no:hover{ filter: brightness(1.12); }
 
-    /* make the dodging button smoother on small screens */
+    .no .btn-text{
+      justify-self: center;
+      font-weight: 900;
+      letter-spacing: .5px;
+      font-size: 16px;
+    }
+
+    .no .joker-icon{
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+
+      background: rgba(125,255,107,.18);
+      border: 1px solid rgba(125,255,107,.45);
+      padding: 4px;
+
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+
+      filter:
+        drop-shadow(0 0 6px rgba(125,255,107,.6))
+        drop-shadow(0 0 14px rgba(125,255,107,.35));
+
+      justify-self: center;
+      pointer-events:none;
+    }
+
+    .below{
+      margin-top:18px;
+      color: var(--bat);
+      font-weight: 800;
+    }
+
+    /* ✅ Mobil */
     @media (max-width:420px){
-  h1{ font-size:28px; }
+      h1{ font-size:28px; }
 
-  .playground{
-    height: 170px;         /* dikey alana yer aç */
-  }
+      .playground{
+        height: 170px;
+      }
 
-  /* YES üstte ortada */
-  .yes{
-    left: 50% !important;
-    top: 35% !important;
-    transform: translate(-50%, -50%) scale(1.08) !important;
-  }
+      /* YES üstte ortada */
+      .yes{
+        left: 50% !important;
+        top: 35% !important;
+        transform: translate(-50%, -50%) scale(1.08) !important;
+      }
 
-  /* NO altta ortada (başlangıç konumu) */
-  #noBtn{
-  left: 50%;
-  top: 75%;
-  right: auto;
-  transform: translate(-50%, -50%);
-}
+      /* NO altta ortada */
+      #noBtn{
+        left: 50%;
+        top: 75%;
+        right: auto;
+        transform: translate(-50%, -50%);
+      }
 
-   button{ width: 220px; }  /* telefonda güzel durur */
-}
-
-#noBtn img{
-  pointer-events: none;
-}
-</style>
+      /* Mobilde ikisi de aynı genişlik */
+      .playground button{
+        width: 220px;
+        min-width: 220px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
-  
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="box">
     <div class="badge"><span class="bat">🦇</span>GOTHAM MESSAGE</div>
     <h1>Will you be my Valentine? 💛</h1>
-   <p>Gotham needs your answer 😌🦇</p>
+    <p>Gotham needs your answer 😌🦇</p>
 
-<div class="playground" id="playground">
-  <button class="yes" onclick="
-    document.getElementById('bgm').play();
-    alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
-  ">YES 💘</button>
+    <div class="playground" id="playground">
+      <button class="yes" onclick="
+        document.getElementById('bgm').play();
+        alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
+      ">YES 💘</button>
 
-<button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
-  <img class="joker-icon" src="joker.png" alt="">
-  <span class="btn-text">NO</span>
-</button>
-</div>
-  <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
+      <button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
+        <img class="joker-icon" src="joker.png" alt="">
+        <span class="btn-text">NO</span>
+      </button>
+    </div>
+
+    <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>
-<script>
-  const noBtn = document.getElementById("noBtn");
-  const pg = document.getElementById("playground");
 
-  function dodge() {
-    const area = pg.getBoundingClientRect();
-    const padding = 12;
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const pg = document.getElementById("playground");
 
-    const btnW = noBtn.offsetWidth;
-    const btnH = noBtn.offsetHeight;
+    function dodge() {
+      const area = pg.getBoundingClientRect();
+      const padding = 12;
 
-    const maxX = Math.max(0, area.width  - btnW - padding);
-    const maxY = Math.max(0, area.height - btnH - padding);
+      const btnW = noBtn.offsetWidth;
+      const btnH = noBtn.offsetHeight;
 
-    const x = padding/2 + Math.random() * maxX;
-    const y = padding/2 + Math.random() * maxY;
+      const maxX = Math.max(0, area.width  - btnW - padding);
+      const maxY = Math.max(0, area.height - btnH - padding);
 
-    noBtn.style.position = "absolute";
-    noBtn.style.left = (x + btnW/2) + "px";
-    noBtn.style.top  = (y + btnH/2) + "px";
-    noBtn.style.right = "auto";
-    noBtn.style.zIndex = "9999";
-    noBtn.style.transform = "translate(-50%, -50%)";
-  }
+      const x = padding/2 + Math.random() * maxX;
+      const y = padding/2 + Math.random() * maxY;
 
-  // PC
-  noBtn.addEventListener("pointerenter", dodge);
-  noBtn.addEventListener("mousemove", dodge);
+      noBtn.style.position = "absolute";
+      noBtn.style.left = (x + btnW/2) + "px";
+      noBtn.style.top  = (y + btnH/2) + "px";
+      noBtn.style.right = "auto";
+      noBtn.style.zIndex = "9999";
+      noBtn.style.transform = "translate(-50%, -50%)";
+    }
 
-  // iOS / touch (en garanti)
-  noBtn.addEventListener("pointerdown", (e) => {
-    e.preventDefault();
-    dodge();
-  });
+    // PC
+    noBtn.addEventListener("pointerenter", dodge);
+    noBtn.addEventListener("mousemove", dodge);
 
-  noBtn.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    dodge();
-  }, { passive: false });
+    // iOS / touch
+    noBtn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      dodge();
+    });
 
-  // click asla çalışmasın
-  noBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dodge();
-  });
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      dodge();
+    }, { passive: false });
 
-  // İlk açılışta bir kere kaçsın (iOS test için)
-  window.addEventListener("load", () => {
-    dodge();
-  });
+    // click asla çalışmasın
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dodge();
+    });
 
-// iOS için ekstra garanti: parmak sürüklerken de kaçsın
-noBtn.addEventListener("touchmove", (e) => {
-  e.preventDefault();
-  dodge();
-}, { passive:false });
+    // İlk açılışta bir kere kaçsın
+    window.addEventListener("load", () => {
+      dodge();
+    });
 
-</script>
-
+    // iOS için ekstra garanti
+    noBtn.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      dodge();
+    }, { passive:false });
+  </script>
 </body>
-
 </html>

@@ -216,7 +216,7 @@
 
     // ✅ Toast helper (replaces alert)
     const toast = document.getElementById("toast");
-    function showToast(msg, ms = 1800){
+    function showToast(msg, ms = 4000){
       toast.textContent = msg;
       toast.classList.add("show");
       clearTimeout(showToast._t);

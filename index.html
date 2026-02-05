@@ -196,6 +196,10 @@
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
+  <audio id="joker" preload="auto">
+    <source src="joker.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="box">
     <div class="badge"> 🦇 SECRET BAT MESSAGE</div>
 
@@ -222,6 +226,8 @@
     const pg = document.getElementById("playground");
     const noText = noBtn.querySelector(".btn-text");
     const toast = document.getElementById("toast");
+    const joker = document.getElementById("joker");
+    joker.volume = 0.35;
 
     function showToast(msg, ms = 4000){
       toast.textContent = msg;
@@ -290,7 +296,15 @@
     noBtn.addEventListener("pointerdown", attempt);
     noBtn.addEventListener("touchstart", attempt, { passive:false });
     noBtn.addEventListener("touchmove", attempt, { passive:false });
-    noBtn.addEventListener("click", attempt);
+    noBtn.addEventListener("click", (e) => {
+  try{
+    joker.pause();
+    joker.currentTime = 0;
+    joker.play();
+  }catch(err){}
+
+  attempt(e);
+});
   </script>
 </body>
 </html>

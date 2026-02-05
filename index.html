@@ -12,7 +12,6 @@
       --card:#0e1626;
       --text:#e9eefc;
       --muted:#a7b2cc;
-
       --bat:#f7c600;
       --batDark:#caa300;
       --neon:#7dff6b;
@@ -31,7 +30,6 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       overflow:hidden;
-
       background:
         radial-gradient(900px 500px at 70% 15%, rgba(247,198,0,.18), transparent 60%),
         radial-gradient(700px 450px at 25% 80%, rgba(96,165,250,.12), transparent 60%),
@@ -95,7 +93,6 @@
       border:none;
       position:absolute;
       user-select:none;
-      -webkit-tap-highlight-color: transparent;
     }
 
     .yes{
@@ -115,7 +112,6 @@
       border:2px solid var(--neon);
       color:#e9eefc;
       padding-right:22px;
-      will-change: transform, left, top;
     }
 
     /* NO text perfectly centered */
@@ -128,25 +124,6 @@
       font-weight:900;
       pointer-events:none;
       white-space:nowrap;
-    }
-
-    /* ✅ SHAKE for final level */
-    @keyframes batShake{
-      0%   { transform: translate(0,0) rotate(0deg); }
-      10%  { transform: translate(-2px, 0) rotate(-1deg); }
-      20%  { transform: translate(3px, 1px) rotate(1deg); }
-      30%  { transform: translate(-4px, -1px) rotate(-1deg); }
-      40%  { transform: translate(4px, 2px) rotate(1deg); }
-      50%  { transform: translate(-3px, 0) rotate(-1deg); }
-      60%  { transform: translate(3px, -2px) rotate(1deg); }
-      70%  { transform: translate(-2px, 1px) rotate(-1deg); }
-      80%  { transform: translate(2px, 0) rotate(1deg); }
-      90%  { transform: translate(-1px, -1px) rotate(-1deg); }
-      100% { transform: translate(0,0) rotate(0deg); }
-    }
-    .no.shake{
-      animation: batShake .55s ease-in-out infinite;
-      box-shadow: 0 0 0 4px rgba(125,255,107,.10), 0 18px 60px rgba(0,0,0,.55);
     }
 
     @media (max-width:420px){
@@ -171,7 +148,7 @@
       }
     }
 
-    /* ✅ NON-BLOCKING TOAST */
+    /* NON-BLOCKING TOAST */
     .toast{
       position: fixed;
       left: 50%;
@@ -192,6 +169,7 @@
       transition: opacity .18s ease, transform .18s ease;
       z-index: 9999;
     }
+
     .toast.show{
       opacity: 1;
       transform: translateX(-50%) translateY(-6px);
@@ -201,7 +179,6 @@
 
 <body>
 
-  <!-- ✅ MUSIC BACK -->
   <audio id="bgm" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -212,9 +189,7 @@
     <p>For Valentine's Day</p>
 
     <div class="playground" id="playground">
-      <button class="yes" id="yesBtn">
-        YES 💘
-      </button>
+      <button class="yes" id="yesBtn">YES 💘</button>
 
       <button class="no" id="noBtn" style="touch-action:none;">
         <span class="btn-text">NO</span>
@@ -224,7 +199,6 @@
     <p class="below">(Choose wisely, or the Bat-Signal stays on all night)</p>
   </div>
 
-  <!-- ✅ Toast message -->
   <div id="toast" class="toast" aria-live="polite"></div>
 
   <script>
@@ -235,7 +209,6 @@
     const pg = document.getElementById("playground");
     const noText = noBtn.querySelector(".btn-text");
 
-    // ✅ Toast helper
     const toast = document.getElementById("toast");
     function showToast(msg, ms = 4000){
       toast.textContent = msg;
@@ -244,7 +217,6 @@
       showToast._t = setTimeout(() => toast.classList.remove("show"), ms);
     }
 
-    // ✅ YES: start music immediately
     yesBtn.addEventListener("click", async () => {
       try{
         bgm.currentTime = 0;
@@ -255,66 +227,33 @@
       }
     });
 
-    // ✅ LEVEL-UP phrases (short, escalating) — final shakes + locks
     const phrases = [
       "NO",
+      "TRY AGAIN!",
       "HMM…",
-      "REALLY?",
-      "THINK AGAIN",
-      "NICE TRY 😈",
-      "NOT TODAY 🦇",
+      "TRY HARDER",
+      "AHA!",
+      "ONE LAST TIME!",
       "HA. NO 🃏",
-      "LAST WARNING ⚠️",
+      "SERIOUSLY?!",
       "U R DEAD ☠️🦇"
     ];
 
     let i = 0;
     let last = 0;
-    let finalMode = false; // when true: no more dodging, only shake
-
-    function setFinalMode(){
-      finalMode = true;
-      noBtn.classList.add("shake");
-
-      // Optional: tiny toast for drama
-      showToast("Gotham has spoken. 😈", 1800);
-
-      // Lock the button to a centered-ish position so shaking looks intentional
-      const r = pg.getBoundingClientRect();
-      const w = noBtn.offsetWidth;
-      const h = noBtn.offsetHeight;
-      noBtn.style.left = ((r.width - w) / 2) + "px";
-      noBtn.style.top  = ((r.height - h) / 2) + "px";
-      noBtn.style.right = "auto";
-      noBtn.style.transform = "translate(0,0)"; // keep stable; shake uses animation
-    }
 
     function nextText(){
       const now = Date.now();
       if(now - last < 140) return;
       last = now;
-
-      if(finalMode) return;
-
-      // advance until the last one, then stay there
-      if(i < phrases.length - 1){
-        i += 1;
-        noText.textContent = phrases[i];
-
-        // when we hit the final phrase -> shake + stop dodging
-        if(i === phrases.length - 1){
-          setFinalMode();
-        }
-      }
+      i = (i + 1) % phrases.length;
+      noText.textContent = phrases[i];
     }
 
     function dodge(){
-      if(finalMode) return;
-
       const r = pg.getBoundingClientRect();
       const w = noBtn.offsetWidth;
       const h = noBtn.offsetHeight;
-
       const x = Math.random() * (r.width - w);
       const y = Math.random() * (r.height - h);
 
@@ -333,4 +272,10 @@
     noBtn.addEventListener("pointerenter", attempt);
     noBtn.addEventListener("mousemove", attempt);
     noBtn.addEventListener("pointerdown", attempt);
-    noBtn.addEventListener("touchstart", att
+    noBtn.addEventListener("touchstart", attempt, { passive:false });
+    noBtn.addEventListener("touchmove", attempt, { passive:false });
+    noBtn.addEventListener("click", attempt);
+  </script>
+
+</body>
+</html>

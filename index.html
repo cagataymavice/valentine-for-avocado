@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>For Micaela 🦇💛</title>
+
   <style>
     :root{
       --bg1:#05070c;
@@ -15,10 +16,11 @@
       --batDark:#caa300;
       --neon:#7dff6b;
       --purple:#3a1459;
-      --blackNeon: rgba(0,0,0,.9);
     }
 
-    *{ box-sizing:border-box; }
+    *{
+      box-sizing:border-box;
+    }
 
     body{
       margin:0;
@@ -95,39 +97,13 @@
       user-select:none;
     }
 
-    /* =========================
-       YES BUTTON — BLACK NEON
-       ========================= */
     .yes{
       left:0;
       top:50%;
       transform: translateY(-50%) scale(1.08);
       background: linear-gradient(180deg, var(--bat), var(--batDark));
       color:#0a0a0a;
-      position:relative;
-      z-index:1;
-      box-shadow:
-        0 0 0 2px rgba(0,0,0,.9),
-        0 0 18px rgba(0,0,0,.75),
-        0 14px 30px rgba(247,198,0,.25);
-    }
-
-    /* Neon glow layer */
-    .yes::before{
-      content:"";
-      position:absolute;
-      inset:-6px;
-      border-radius:999px;
-      box-shadow:
-        0 0 18px rgba(0,0,0,.9),
-        0 0 36px rgba(0,0,0,.6);
-      z-index:-1;
-    }
-
-    .yes:hover::before{
-      box-shadow:
-        0 0 24px rgba(0,0,0,1),
-        0 0 48px rgba(0,0,0,.75);
+      box-shadow: 0 14px 30px rgba(247,198,0,.18);
     }
 
     .no{
@@ -152,18 +128,23 @@
     }
 
     @media (max-width:420px){
-      .playground{ height:170px; }
+      .playground{
+        height:170px;
+      }
+
       .yes{
         left:50%;
         top:35%;
         transform: translate(-50%, -50%) scale(1.08);
       }
+
       .no{
         left:50%;
         top:75%;
         right:auto;
         transform: translate(-50%, -50%);
       }
+
       button{
         width:220px;
         min-width:220px;
@@ -199,6 +180,105 @@
 </head>
 
 <body>
-  <!-- içerik ve JS aynı -->
+  <audio id="bgm" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="box">
+    <div class="badge"> 🦇 SECRET BAT MESSAGE</div>
+
+    <h1>Will you be my Valentine?</h1>
+    <p>For Valentine's Day</p>
+
+    <div class="playground" id="playground">
+      <button class="yes" id="yesBtn">YES 💘</button>
+
+      <button class="no" id="noBtn" style="touch-action:none;">
+        <span class="btn-text">NO</span>
+      </button>
+    </div>
+
+    <p class="below">(Choose wisely, or the Bat-Signal stays on all night)</p>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script>
+    const bgm = document.getElementById("bgm");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const pg = document.getElementById("playground");
+    const noText = noBtn.querySelector(".btn-text");
+    const toast = document.getElementById("toast");
+
+    function showToast(msg, ms = 4000){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(
+        () => toast.classList.remove("show"),
+        ms
+      );
+    }
+
+    yesBtn.addEventListener("click", async () => {
+      try{
+        bgm.currentTime = 0;
+        await bgm.play();
+        showToast("Hope you clicked it on your first try 💛");
+      } catch(e){
+        showToast("Tap again to start the music 💛", 2000);
+      }
+    });
+
+    const phrases = [
+      "NO",
+      "TRY AGAIN!",
+      "HMM…",
+      "TRY HARDER",
+      "AHA!",
+      "ONE LAST TIME!",
+      "HA. NO 🃏",
+      "SERIOUSLY?!",
+      "U R DEAD ☠️🦇"
+    ];
+
+    let i = 0;
+    let last = 0;
+
+    function nextText(){
+      const now = Date.now();
+      if(now - last < 140) return;
+      last = now;
+      i = (i + 1) % phrases.length;
+      noText.textContent = phrases[i];
+    }
+
+    function dodge(){
+      const r = pg.getBoundingClientRect();
+      const w = noBtn.offsetWidth;
+      const h = noBtn.offsetHeight;
+      const x = Math.random() * (r.width - w);
+      const y = Math.random() * (r.height - h);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.right = "auto";
+      noBtn.style.transform = "translate(0,0)";
+    }
+
+    function attempt(e){
+      e.preventDefault();
+      nextText();
+      dodge();
+    }
+
+    noBtn.addEventListener("pointerenter", attempt);
+    noBtn.addEventListener("mousemove", attempt);
+    noBtn.addEventListener("pointerdown", attempt);
+    noBtn.addEventListener("touchstart", attempt, { passive:false });
+    noBtn.addEventListener("touchmove", attempt, { passive:false });
+    noBtn.addEventListener("click", attempt);
+  </script>
 </body>
 </html>

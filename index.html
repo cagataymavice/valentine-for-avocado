@@ -41,6 +41,7 @@
       overflow:hidden;
     }
 
+    /* soft “bat-signal” beam */
     body::before{
       content:"";
       position:fixed;
@@ -52,6 +53,7 @@
       pointer-events:none;
     }
 
+    /* subtle city “windows” texture */
     body::after{
       content:"";
       position:fixed;
@@ -120,13 +122,14 @@
       overflow: hidden;
     }
 
-    /* konumlar */
+    /* Konumlar */
     .yes{
       position:absolute;
       left:0;
       top:50%;
       transform: translateY(-50%) scale(1.08);
     }
+
     #noBtn{
       position:absolute;
       right:0;
@@ -134,7 +137,7 @@
       transform: translateY(-50%);
     }
 
-    /* genel button */
+    /* GENEL BUTON */
     button{
       border-radius:999px;
       border:1px solid transparent;
@@ -146,7 +149,7 @@
     }
     button:active{ transform: scale(.98); }
 
-    /* ✅ eşit boyut sistemi */
+    /* ✅ Eşit boyut sistemi (PC + iOS) */
     .playground button{
       height:56px;
       padding:0 22px;
@@ -172,7 +175,7 @@
     /* NO (bubble'lı tasarım) */
     .no{
       display:grid;
-      grid-template-columns: 56px 1fr 56px; /* sol bubble, yazı, sağ denge */
+      grid-template-columns: 48px 1fr 48px; /* ✅ daha dar: yuvarlak daha sola gelir */
       align-items:center;
 
       background: linear-gradient(180deg, #2b123d, #14091f);
@@ -192,12 +195,14 @@
       font-size:16px;
     }
 
+    /* Yuvarlak: kapsülün içinde ve SOLDA, duvara yakın */
     .icon-bubble{
       width:44px;
       height:44px;
       border-radius:999px;
-      justify-self: start;
-      margin-left: 6px;
+
+      justify-self: start;    /* ✅ sol tarafa yasla */
+      margin-left: 2px;       /* ✅ duvara yakın */
 
       display:grid;
       place-items:center;
@@ -231,7 +236,7 @@
       font-weight:800;
     }
 
-    /* mobil */
+    /* Mobil */
     @media (max-width:420px){
       h1{ font-size:28px; }
 

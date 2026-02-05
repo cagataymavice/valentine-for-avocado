@@ -158,38 +158,41 @@ body{
     .yes:hover{ filter: brightness(1.05); }
 
 .no{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
   background: linear-gradient(180deg, #2b123d, #14091f);
   color: #e9eefc;
   border: 1.5px solid #7dff6b;
+
   box-shadow:
-    0 0 0 rgba(0,0,0,0),
-    0 0 22px rgba(125,255,107,.35);
+    0 0 18px rgba(125,255,107,.28),
+    0 0 40px rgba(126, 58, 242, .18);
+
   backdrop-filter: none;
 }
+
 .no:hover{
-  filter: brightness(1.15);
+  filter: brightness(1.12);
 }
 
-/* 🔽 BURADAN SONRASI YENİ EKLENİYOR 🔽 */
+/* Joker ikonunu neon'a uydur */
+.no .joker-icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
 
-.no img{
-  height: 22px;
-  width: 22px;
-  margin-right: 10px;
-  vertical-align: middle;
-  image-rendering: -webkit-optimize-contrast; /* iOS için netlik */
-}
+  /* “sticker” değil, “badge” gibi */
+  background: rgba(125,255,107,.12);
+  border: 1px solid rgba(125,255,107,.35);
+  padding: 4px;
 
-.no .icon-badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  background: rgba(255,255,255,.92);
-  box-shadow: 0 0 12px rgba(125,255,107,.25);
-  margin-right: 10px;
+  /* iOS netlik */
+  image-rendering: -webkit-optimize-contrast;
+
+  /* ikonun neon gibi parlaması */
+  filter: drop-shadow(0 0 10px rgba(125,255,107,.35));
 }
     .below{
   margin-top:18px;
@@ -252,12 +255,10 @@ body{
     alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
   ">YES 💘</button>
 
-  <button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
-  <span class="icon-badge">
-  <img src="joker.png" alt="Joker">
-  </span>
+<button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
+  <img class="joker-icon" src="joker.png" alt="">
   NO
-  </button>
+</button>
 </div>
   <p class="below">(Say yes or the Bat-signal stays on all night.)</p>
   </div>

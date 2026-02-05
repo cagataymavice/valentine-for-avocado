@@ -291,12 +291,7 @@
       dodge();
     }
 
-    noBtn.addEventListener("pointerenter", attempt);
-    noBtn.addEventListener("mousemove", attempt);
-    noBtn.addEventListener("pointerdown", attempt);
-    noBtn.addEventListener("touchstart", attempt, { passive:false });
-    noBtn.addEventListener("touchmove", attempt, { passive:false });
-    noBtn.addEventListener("click", (e) => {
+    noBtn.addEventListener("pointerdown", (e) => {
   try{
     joker.pause();
     joker.currentTime = 0;
@@ -305,6 +300,10 @@
 
   attempt(e);
 });
+    noBtn.addEventListener("mousemove", attempt);
+    noBtn.addEventListener("pointerdown", attempt);
+    noBtn.addEventListener("touchstart", attempt, { passive:false });
+    noBtn.addEventListener("touchmove", attempt, { passive:false });
   </script>
 </body>
 </html>

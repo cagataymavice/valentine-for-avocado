@@ -175,29 +175,62 @@
     /* NO */
     .no{
       /* grid ile ikon + yazı ortası sabit */
-      display: grid;
-      grid-template-columns: 44px 1fr 44px;
-      align-items: center;
+      .no{
+  display: grid;
+  grid-template-columns: 56px 1fr 56px; /* sol bubble, yazı, sağ denge */
+  align-items: center;
 
-      width: auto;
-      min-height: unset;
+  width: auto;
+  min-height: unset;
 
-      background: linear-gradient(180deg, #2b123d, #14091f);
-      color: #e9eefc;
-      border: 2px solid #7dff6b;
+  background: linear-gradient(180deg, #2b123d, #14091f);
+  color: #e9eefc;
+  border: 2px solid #7dff6b;
 
-      box-shadow:
-        0 0 14px rgba(125,255,107,.25),
-        0 0 30px rgba(125,255,107,.15);
-    }
+  box-shadow:
+    0 0 14px rgba(125,255,107,.25),
+    0 0 30px rgba(125,255,107,.15);
+}
+
+.icon-bubble{
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+
+  background: rgba(125,255,107,.16);
+  border: 1px solid rgba(125,255,107,.45);
+
+  box-shadow:
+    0 0 10px rgba(125,255,107,.25),
+    inset 0 0 0 2px rgba(255,255,255,.06);
+}
+
+.no .joker-icon{
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 8px;
+
+  image-rendering: -webkit-optimize-contrast;
+
+  filter:
+    drop-shadow(0 0 6px rgba(125,255,107,.55))
+    drop-shadow(0 0 14px rgba(125,255,107,.25));
+
+  pointer-events:none;
+}      
+      
     .no:hover{ filter: brightness(1.12); }
 
     .no .btn-text{
-      justify-self: center;
-      font-weight: 900;
-      letter-spacing: .5px;
-      font-size: 16px;
-    }
+  justify-self: center;
+  font-weight: 900;
+  letter-spacing: .5px;
+  font-size: 16px;
+}
 
     .no .joker-icon{
       width: 32px;
@@ -274,8 +307,11 @@
       ">YES 💘</button>
 
       <button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
-        <img class="joker-icon" src="joker.png" alt="">
+        <span class="icon-bubble">
+          <img class="joker-icon" src="joker.png" alt="">
+        </span>
         <span class="btn-text">NO</span>
+        <span aria-hidden="true"></span>
       </button>
     </div>
 

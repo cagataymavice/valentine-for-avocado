@@ -207,6 +207,10 @@ body{
 
   button{ width: 220px; }  /* telefonda güzel durur */
 }
+
+  #noBtn img{
+  pointer-events: none;
+    
   </style>
 </head>
 
@@ -235,43 +239,53 @@ body{
   </div>
 <script>
   const noBtn = document.getElementById("noBtn");
+  const pg = document.getElementById("playground");
 
   function dodge() {
-  const container = document.getElementById("playground");
-  const area = container.getBoundingClientRect();
+    const area = pg.getBoundingClientRect();
+    const padding = 12;
 
-  const padding = 12;
-  const btnW = noBtn.offsetWidth;
-  const btnH = noBtn.offsetHeight;
+    const btnW = noBtn.offsetWidth;
+    const btnH = noBtn.offsetHeight;
 
-  const maxX = Math.max(0, area.width  - btnW - padding);
-  const maxY = Math.max(0, area.height - btnH - padding);
+    const maxX = Math.max(0, area.width  - btnW - padding);
+    const maxY = Math.max(0, area.height - btnH - padding);
 
-  const x = padding/2 + Math.random() * maxX;
-  const y = padding/2 + Math.random() * maxY;
+    const x = padding/2 + Math.random() * maxX;
+    const y = padding/2 + Math.random() * maxY;
 
-  noBtn.style.position = "absolute";
-  noBtn.style.left = (x + btnW/2) + "px";
-  noBtn.style.top  = (y + btnH/2) + "px";
-  noBtn.style.zIndex = "9999";
-
-  noBtn.style.transform = "translate(-50%, -50%)";  // ✅ artık translateY(-50%) yok
-  noBtn.style.right = "auto";      // ✅ artık right:0 etkisi yok
+    noBtn.style.position = "absolute";
+    noBtn.style.left = (x + btnW/2) + "px";
+    noBtn.style.top  = (y + btnH/2) + "px";
+    noBtn.style.right = "auto";
+    noBtn.style.zIndex = "9999";
+    noBtn.style.transform = "translate(-50%, -50%)";
   }
-  // Masaüstü: yaklaşınca kaçsın
+
+  // PC
   noBtn.addEventListener("pointerenter", dodge);
   noBtn.addEventListener("mousemove", dodge);
 
-  // Telefon: dokununca kaçsın
+  // iOS / touch (en garanti)
+  noBtn.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
+    dodge();
+  });
+
   noBtn.addEventListener("touchstart", (e) => {
     e.preventDefault();
-   dodge();
+    dodge();
   }, { passive: false });
 
-  // Tıklamayı tamamen iptal et ve yine kaçır
+  // click asla çalışmasın
   noBtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
+    dodge();
+  });
+
+  // İlk açılışta bir kere kaçsın (iOS test için)
+  window.addEventListener("load", () => {
     dodge();
   });
 </script>

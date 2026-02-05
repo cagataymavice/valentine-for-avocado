@@ -205,13 +205,13 @@ body{
     transform: translate(-50%, -50%) !important;
   }
 
-  button{ width: 220px; }  /* telefonda güzel durur */
+   button{ width: 220px; }  /* telefonda güzel durur */
 }
 
-  #noBtn img{
+#noBtn img{
   pointer-events: none;
-    
-  </style>
+}
+</style>
 </head>
 
 <body>
@@ -230,7 +230,7 @@ body{
     alert('YAY!! 💛🦇 I knew it! Gotham is safe now 😌');
   ">YES 💘</button>
 
-  <button class="no" id="noBtn" type="button" aria-label="No (Joker)">
+  <button class="no" id="noBtn" type="button" aria-label="No (Joker)" style="touch-action:none;">
     <img src="joker.png" alt="Joker" style="height:20px;vertical-align:middle;margin-right:8px;">
     NO
   </button>
